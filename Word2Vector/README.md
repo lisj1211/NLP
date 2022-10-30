@@ -9,4 +9,4 @@ python main.py
 
 ## 结果
 在3090单卡GPU训练了大概4-5天左右，下图为与“篮球”最相似的10个词，可以看到结果与训练数据有很大关系，总体来看效果还可以。.
-![image](https://github.com/lisj1211/NLP/new/main/Word2Vector/篮球.jpg)
+![image](https://github.com/lisj1211/NLP/blob/main/Word2Vector/%E7%AF%AE%E7%90%83.jpg)
