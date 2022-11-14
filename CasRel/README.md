@@ -11,6 +11,8 @@
 * matplotlib
 * transformers
 
+## DataSet
+数据集为百度关系抽取数据集，句子最大长度为294，最小长度为5，平均长度为50，因此padding长度选择为300。
 
 ## Train
 训练模型
