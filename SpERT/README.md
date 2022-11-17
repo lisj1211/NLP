@@ -90,7 +90,7 @@ SpERT模型预测结果为:
 也说明了该模型的强大之处。
 ## ToDo
 
-之后复现哪个模型还未明确，待定！。
+之后复现哪个模型还未明确，待定！
 
 ## Reference
 [1] [SpERT: Span-based Entity and Relation Transformer](https://arxiv.org/abs/1909.07755)  
