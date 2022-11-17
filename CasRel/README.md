@@ -31,8 +31,8 @@
 开始loss为16是因为训练过程采用warm up，去掉第一次更新的loss后，结果为下图所示  
 ![loss_curve](https://github.com/lisj1211/NLP/blob/main/CasRel/picture/loss.png) 
 
-原始模型与加入对抗训练后的loss对比 
-![loss_curve](https://github.com/lisj1211/NLP/blob/main/CasRel/picture/compare.png) 
+原始模型与加入对抗训练后的loss对比  
+![loss_curve](https://github.com/lisj1211/NLP/blob/main/CasRel/picture/compare.png)  
 
 ## Analysis
 
@@ -47,5 +47,5 @@ precision 0.80，recall 0.76。稍微有点差距，应该是优化过程的不�
 
 ## Reference
 [1] [A Novel Cascade Binary Tagging Framework for Relational Triple Extraction](https://arxiv.org/abs/1909.03227)  
-[2] [https://github.com/Onion12138/CasRelPyTorch](https://github.com/Onion12138/CasRelPyTorch)
+[2] [https://github.com/Onion12138/CasRelPyTorch](https://github.com/Onion12138/CasRelPyTorch)  
 [3] [https://zhuanlan.zhihu.com/p/91269728](https://zhuanlan.zhihu.com/p/91269728)
