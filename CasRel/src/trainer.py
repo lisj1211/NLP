@@ -7,12 +7,14 @@ import transformers
 from torch.utils.data import DataLoader
 from transformers import BertTokenizer
 
-from .utils import MyDataSet, move_dict_value_to_device, to_tuple, my_collate_fn
+from utils import MyDataSet, move_dict_value_to_device, to_tuple, my_collate_fn
+from casRel import FGM
 
 
 def train(config, model, loss_function, optimizer, rel_vocab):
     print("start training CasRel model")
     time_start = time.time()
+    fgm = FGM(model)
 
     train_dataset = MyDataSet(config.train_path, config.bert_path, rel_vocab, config.max_len, is_test=False)
     train_loader = DataLoader(dataset=train_dataset, batch_size=config.batch_size, collate_fn=my_collate_fn,
@@ -39,11 +41,24 @@ def train(config, model, loss_function, optimizer, rel_vocab):
 
             loss = loss_function(pred_dic, batch_y)
 
-            optimizer.zero_grad()
-            loss.backward()
+            # adversarial train
+            loss.backward()  # 反向传播，得到正常的grad
+            fgm.attack()  # 在embedding上添加对抗扰动
+            pred_dic_ad = model(batch_x['token_ids'], batch_x['mask'], batch_x['sub_head'], batch_x['sub_tail'])
+            loss_adv = loss_function(pred_dic_ad, batch_y)
+            loss_adv.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), config.max_norm)
+            fgm.restore()
             optimizer.step()
             scheduler.step()
+            optimizer.zero_grad()
+
+            # # normal train
+            # optimizer.zero_grad()
+            # loss.backward()
+            # torch.nn.utils.clip_grad_norm_(model.parameters(), config.max_norm)
+            # optimizer.step()
+            # scheduler.step()
 
             total_loss += loss.item()
 
