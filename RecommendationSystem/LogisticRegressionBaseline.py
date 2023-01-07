@@ -44,19 +44,54 @@ class BaselineCFbySGD:
         return bu, bi
 
     def predict(self, user_id, item_id):
+        if item_id not in self.items_ratings.index:
+            raise ValueError('当期itemId不存在于训练数据中，无法进行预测')
         return self.global_mean + self.bu[user_id] + self.bi[item_id]
+
+    def test(self, test_data):
+        results = []
+        for uid, iid, real_rating in test_data.itertuples(index=False):
+            try:
+                predict_result = self.predict(uid, iid)
+            except ValueError as e:
+                print(e)
+            else:
+                results.append([uid, iid, real_rating, predict_result])
+        return results
 
 
 def data_split(data_path, train_size=0.8):
-    
+    print('开始划分数据集')
+    dtype = {'userId': np.int32, 'movieId': np.int32, 'ratings': np.float32}
+    ratings = pd.read_csv(data_path, dtype=dtype, usecols=range(3))
+    test_data_idx = []
+    for uid in ratings.groupby('userId').any().index:
+        user_rating_data = ratings.where(ratings['userId'] == uid).dropna()
+        index = list(user_rating_data.index)
+        np.random.shuffle(index)
+        _index = round(len(user_rating_data) * train_size)
+        test_data_idx.extend(list(user_rating_data.index)[_index:])
+
+    test_data = ratings.loc[test_data_idx]
+    train_data = ratings.drop(test_data_idx)
+    print('数据集划分完成')
+    return train_data, test_data
+
+
+def accuracy(predict_result):
+    """
+    :param predict_result: (uid, iid, real_rating, predict_rating)
+    :return:
+    """
+    sum_ = 0
+    for uid, iid, real_rating, predict_rating in predict_result:
+        sum_ += abs(predict_rating - real_rating)
+    return round(sum_ / len(predict_result))
+
 
 if __name__ == '__main__':
-    dtype = [('userId', np.int32), ('movieId', np.int32), ('rating', np.float32)]
-    dataset = pd.read_csv('./data/ml-latest-small/ratings.csv', usecols=range(3), dtype=dict(dtype))
+    train_data, test_data = data_split('./data/ml-latest-small/ratings.csv')
     model = BaselineCFbySGD(20, 0.1, 0.1, columns=['userId', 'movieId', 'rating'])
-    model.fit(dataset)
-
-    while True:
-        uid = int(input('uid:'))
-        iid = int(input('iid:'))
-        print(model.predict(uid, iid))
+    model.fit(train_data)
+    pred_results = model.test(test_data)
+    print(f'mae: {accuracy(pred_results)}')
