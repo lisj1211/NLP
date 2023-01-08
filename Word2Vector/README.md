@@ -1,5 +1,5 @@
 ## Introduction
-基于Skip-Gram的word embedding实现，参考了很多博客，训练数据来自THUCNews的一部分数据，共127MB。
+基于Skip-Gram的word embedding实现，参考了很多博客，训练数据来自THUCNews的一部分数据，共127MB。 
 
 ## Requirement
 * python 3.7
