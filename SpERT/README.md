@@ -93,4 +93,4 @@ SpERT模型预测结果为:
 之后复现哪个模型还未明确，待定！
 
 ## Reference
-[1] [SpERT: Span-based Entity and Relation Transformer](https://arxiv.org/abs/1909.07755)  
+[1] [SpERT: Span-based Entity and Relation Transformer](https://arxiv.org/abs/1909.07755)   
