@@ -33,7 +33,7 @@ BertFreeze | 0.9465 | 0.2647 | 0.9308 | 0.2245 | 0.9404 | 0.1865 | 189m
 BertUnfreeze | 0.9977 | 0.0252 | 0.9788 | 0.1164 | 0.9843 | 0.0594 | 369m 
 
 训练loss曲线
-![loss_curve](https://github.com/lisj1211/NLP/blob/main/TextClassification/loss_curve.png)
+![loss_curve](https://github.com/lisj1211/NLP/blob/main/TextClassification/loss_curve.png) 
 
 ## Analysis
 
