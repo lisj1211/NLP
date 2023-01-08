@@ -1,5 +1,5 @@
 ## Introduction
-基于global vector的word embedding实现，训练数据来自THUCNews的一小部分数据，随机选择了10000条进行训练。
+基于global vector的word embedding实现，训练数据来自THUCNews的一小部分数据，随机选择了10000条进行训练。 
 
 ## Requirement
 * python 3.7
