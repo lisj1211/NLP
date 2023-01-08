@@ -82,7 +82,7 @@ transformers已经支持ERNIE(大佬[nghuyong](https://huggingface.co/nghuyong))
 通过对比源码发现，两者模型结构基本一致，区别在于权重名称，因此只需要建立一个名称的映射即可。此外，两者对于矩阵乘法的实现存在不同，即XW，WX。
 ernie.encoder.layers.0.linear1.weight的shape为(768, 3072)，而同层的bert.encoder.layer.0.intermediate.dense.weight的shape为(3072, 768)，因此需要进行转置操作。
 详细过程参见[convert.py](https://github.com/lisj1211/NLP/blob/main/ERNIE_to_Pytorch/convert.py)。由于往往只需要使用bert的前12层，所以我也只转换了前12层。
-最后，为了检验正确性，与Huggingface的transformers库输出结果进行对比，见[test.py](https://github.com/lisj1211/NLP/blob/main/ERNIE_to_Pytorch/test.py)。
+最后，为了检验正确性，与Huggingface的transformers库输出结果进行对比，见[test.py](https://github.com/lisj1211/NLP/blob/main/ERNIE_to_Pytorch/test.py)。 
 
 ## Reference
 [1] [nghuyong/ERNIE-Pytorch](https://arxiv.org/abs/1909.07755)  
