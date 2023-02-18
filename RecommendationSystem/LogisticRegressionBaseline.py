@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 基于逻辑回归梯度下降的协同过滤baseline模型
+J = sum((r_ui - avg - b_u - b_i) ** 2) + lambda * (sum(b_i ** 2) + sum(b_u ** 2))
+根据梯度下降的公式：theta_i = theta_i - alpha * J/theta_i(偏导)
 b_u = b_u - lr * (-(r_ui - (avg + b_u + b_i)) + l_2 * b_u)
 b_i = b_i - lr * (-(r_ui - (avg + b_u + b_i)) + l_2 * b_i)
 
